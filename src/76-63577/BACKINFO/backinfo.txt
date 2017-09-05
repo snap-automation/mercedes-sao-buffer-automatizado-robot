@@ -1,0 +1,56 @@
+#
+# Generated backup file, do not edit.
+#
+# Originally at: /hd0a/temp/125ab9b8
+# 17-09-05  16:39:41
+#
+>>SYSTEM_ID:
+76-63577
+
+>>PRODUCTS_ID:
+RobotWare Version: 5.14.3071.03
+
+  RW Control module key
+  RobotWare OS and English
+  644-6 Portuguese
+  645-2 German
+  709-x DeviceNet
+  709-2/709-5 Master/Slave Dual
+  888-2 PROFINET m/s SW
+  608-1 World Zones
+  611-1 Path Recovery
+  613-1 Collision Detection
+  617-1 FlexPendant Interface
+  623-1 Multitasking
+  RW Drive module 1 key
+  ABB standard manipulator
+  IRB 7600
+  Axis 1 standard work range
+  7600-325/3.1
+  No motor fan
+  Drive System 09 7600
+  Additional drive
+  ADU-790A in position X3
+  No drive in position Y3
+
+>>ROBOT_TYPE:
+7600-325/3.1
+
+>>HOME:
+All public files and directories
+
+>>SYSPAR:
+SYS.cfg
+PROC.cfg
+EIO.cfg
+SIO.cfg
+MOC.cfg
+MMC.cfg
+
+
+>>TASK1: (T_ROB1,NewProgramName,)
+SYSMOD/user.sys @ user.sys
+PROGMOD/MainModule.mod @ mainmodule.mod
+
+
+>>EOF:

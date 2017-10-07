@@ -1,10 +1,10 @@
 MODULE MainModule
-	CONST robtarget pPega_Esteira_Entrada_Fam_1:=[[-891.42,-6.63,114.94],[0.00890799,0.505558,-0.862742,0.00289533],[1,0,1,0],[2789.87,9E+09,9E+09,9E+09,9E+09,9E+09]];
+	CONST robtarget pPega_Esteira_Entrada_Fam_1:=[[-892.30,-8.73,114.94],[0.00890689,0.505902,-0.86254,0.00289884],[1,0,1,0],[2789.87,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pPega_Esteira_Entrada_Fam_2:=[[-903.12,22.56,113.13],[0.00995181,0.502068,-0.864764,0.00345378],[1,0,1,0],[2790.48,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pPega_Esteira_Entrada_Fam_3:=[[-856.19,17.95,113.21],[0.011327,0.469326,-0.882951,0.00179029],[1,0,1,0],[2789.01,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pPega_Esteira_Entrada_Fam_4:=[[-859.62,53.63,114.15],[0.0118491,0.475165,-0.879814,0.00216132],[1,0,1,0],[2788.09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pDepos_Esteira_Saída_Fam_1:=[[3914.59,-522.52,391.38],[0.00215515,-0.50478,0.863171,0.0113072],[-2,0,-1,0],[2786.14,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    CONST robtarget pDepos_Esteira_Saída_Fam_2:=[[3902.08,-490.79,392.46],[0.000724518,0.504333,-0.86348,-0.00693714],[-2,0,-1,0],[2786.08,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget pDepos_Esteira_Saída_Fam_2:=[[3902.08,-490.79,391.46],[0.000724518,0.504333,-0.86348,-0.00693714],[-2,0,-1,0],[2786.08,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pDepos_Esteira_Saída_Fam_3:=[[3948.36,-498.11,391.19],[0.00179139,-0.467512,0.883916,0.0109667],[-2,0,-1,0],[2786.12,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pDepos_Esteira_Saída_Fam_4:=[[3946.87,-461.76,390.86],[0.00261336,-0.469104,0.88306,0.0117412],[-2,0,-1,0],[2786.2,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pBuffer_Pos_1_Fam_1:=[[7.37,772.71,-227.00],[0.0094332,0.495816,-0.868359,-0.0055283],[0,0,0,0],[-2759.32,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -399,7 +399,7 @@ MODULE MainModule
     CONST robtarget pBuffer_Pos_98_Fam_2:=[[2641.95,522.01,-16.81],[0.000822535,0.50006,-0.865969,-0.00600634],[-2,0,-1,0],[2796.93,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pBuffer_Pos_98_Fam_3:=[[2687.42,517.04,-16.45],[0.00151833,0.465557,-0.88499,-0.00678621],[-2,0,-1,0],[2796.9,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pBuffer_Pos_98_Fam_4:=[[0.00,0.00,0.00],[0.707107,0,0.707107,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    CONST robtarget pBuffer_Pos_99_Fam_1:=[[2660.74,1088.68,-14.85],[0.00398024,0.504048,-0.863651,-0.00502508],[-2,0,-1,0],[2790.31,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget pBuffer_Pos_99_Fam_1:=[[2660.74,1088.68,-16],[0.00398024,0.504048,-0.863651,-0.00502508],[-2,0,-1,0],[2790.31,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pBuffer_Pos_99_Fam_2:=[[2639.70,1118.52,-15.75],[0.00151818,0.500054,-0.865962,-0.00725569],[-2,0,0,0],[2796.94,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pBuffer_Pos_99_Fam_3:=[[2687.29,1112.94,-16.97],[0.00276506,0.465646,-0.884928,-0.00824854],[-2,0,0,0],[2796.86,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pBuffer_Pos_99_Fam_4:=[[0.00,0.00,0.00],[0.707107,0,0.707107,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
@@ -429,7 +429,7 @@ MODULE MainModule
     VAR robtarget pPosição_Final_Est_Entrada:=[[0.00,0.00,0.00],[0.707107,0,0.707107,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     VAR robtarget pPosição_Final_Est_Saida:=[[0.00,0.00,0.00],[0.707107,0,0.707107,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     VAR robtarget pPosição_Final_Buffer:=[[0.00,0.00,0.00],[0.707107,0,0.707107,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    VAR robtarget pMov_Pega_Esteira_Entrada:=[[0.00,0.00,0.00],[0.707107,0,0.707107,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    VAR robtarget pMov_Pega_Esteira_Entrada:=[[-892.63,-9.52,114.94],[0.00890601,0.506032,-0.862464,0.00290069],[1,0,1,0],[2789.87,9E+09,9E+09,9E+09,9E+09,9E+09]];
     VAR robtarget pMov_Depos_Esteira_Saída:=[[0.00,0.00,0.00],[0.707107,0,0.707107,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     VAR robtarget pMov_Pega_Depos_Buffer:=[[0.00,0.00,0.00],[0.707107,0,0.707107,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];    
     VAR robtarget pMov_Posicionar_Home:=[[0.00,0.00,0.00],[0.707107,0,0.707107,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -441,6 +441,9 @@ MODULE MainModule
     CONST num nRamp_Mov_Geral := 40;
     CONST num nSens_Colid_Mov_Geral := 200;
     CONST num nSens_Colid_Aprox := 80;
+    CONST num nLimite_Home := 20;
+    VAR num nAux_Limite_Max;
+    VAR num nAux_Limite_Low;
     PERS tooldata tGarra:=[TRUE,[[0,0,622.752],[1,0,0,0]],[65,[482,30,70],[1,0,0,0],0,0,0]];
 	PERS loaddata lFamilia_1:=[170,[1,1,1],[1,0,0,0],0,0,0];
 	PERS loaddata lFamilia_2:=[228,[1,1,1],[1,0,0,0],0,0,0];
@@ -458,6 +461,14 @@ MODULE MainModule
     CONST speeddata SMov_Levanta_Com_Produto := [100, 100, 300, 100];
 	CONST jointtarget jposRecolhidoEsteira:=[[153.109,-47.1242,51.2209,1.422,85.748,93.2914],[2772.08,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST jointtarget jposRecolhidoEsteiraSaida:=[[-153.109,-47.1241,51.2209,1.42205,85.748,-28.8738],[2772.09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+	VAR bool timeout_av1:=FALSE;
+	VAR bool timeout_av2:=FALSE;
+	VAR bool timeout_av3:=FALSE;
+	VAR bool timeout_av4:=FALSE;
+	VAR bool timeout_rc1:=FALSE;
+	VAR bool timeout_rc2:=FALSE;
+	VAR bool timeout_rc3:=FALSE;
+	VAR bool timeout_rc4:=FALSE;
 	
 	PROC main()
 		!Inicio de Rotina Principal
@@ -468,8 +479,51 @@ MODULE MainModule
         motionsup \On \TuneValue:= nSens_Colid_Mov_Geral;
         
         !Vai para posição de trabalho
-        MoveJ pPosição_Trabalho, sMov_Geral_Sem_Produto, fine, tGarra \WObj:=wobj0;      
-        !Verificação_Inicial;
+        !pPosição_Atual := CRobT(\Tool:=tGarra \WObj:=wobj0);
+        !pPosição_Atual.trans.z := 1000;
+        !MoveL pPosição_Atual, SMov_Fina, fine, tGarra \WObj:=wobj0;
+        !MoveJ pPosição_Trabalho, sMov_Geral_Sem_Produto, fine, tGarra \WObj:=wobj0;      
+    verif: 
+        pPosição_Atual := CRobT(\Tool:=tGarra \WObj:=wobj0);
+        
+    verif_x:
+        nAux_Limite_Low := pPosição_Atual.trans.x - nLimite_Home;
+        nAux_Limite_Max := pPosição_Atual.trans.x + nLimite_Home;
+        IF (pPosição_Trabalho.trans.x > nAux_Limite_Low and pPosição_Trabalho.trans.x < nAux_Limite_Max) THEN
+            GOTO verif_y;
+        ELSE
+            SetDO PN_OUT_Pos_Home_Manual, 1;
+            TPErase;
+            TPWrite "Posicione Robô em Home Position Manualmente";
+            Stop;
+            GOTO verif;
+        ENDIF
+        
+    verif_y:
+        nAux_Limite_Low := pPosição_Atual.trans.y - nLimite_Home;
+        nAux_Limite_Max := pPosição_Atual.trans.y + nLimite_Home;
+        IF (pPosição_Trabalho.trans.y > nAux_Limite_Low and pPosição_Trabalho.trans.y < nAux_Limite_Max) THEN
+            GOTO verif_z;
+        ELSE
+            SetDO PN_OUT_Pos_Home_Manual, 1;
+            TPErase;
+            TPWrite "Posicione Robô em Home Position Manualmente";
+            Stop;
+            GOTO verif;
+        ENDIF
+        
+    verif_z:
+        nAux_Limite_Low := pPosição_Atual.trans.z - nLimite_Home;
+        nAux_Limite_Max := pPosição_Atual.trans.z + nLimite_Home;
+        IF (pPosição_Trabalho.trans.z > nAux_Limite_Low and pPosição_Trabalho.trans.z < nAux_Limite_Max) THEN
+            GOTO init;
+        ELSE
+            SetDO PN_OUT_Pos_Home_Manual, 1;
+            TPErase;
+            TPWrite "Posicione Robô em Home Position Manualmente";
+            Stop;
+            GOTO verif;
+        ENDIF
         
     init:
              
@@ -4157,7 +4211,8 @@ inpos_fam_4:
         !Solicita Abertura de Garra
         SetDO \Sync, PN_OUT_Solicita_Abertura, 1;
         WaitTime 0.5;
-        WaitDI PN_IN_Garra_Trabalho_OK, 1;
+        WaitDI PN_IN_Garra_Fechada, 0;
+        WaitDI PN_IN_Garra_Aberta, 1;
         WaitTime 0.5;
         SetDO \Sync, PN_OUT_Solicita_Abertura, 0;
         
@@ -4169,12 +4224,13 @@ inpos_fam_4:
         !Destrava produto na garra
         SetDO \Sync, DO_Av_Fixação_Peça, 0;
         SetDO \Sync, DO_Rc_Fixação_Peça, 1;
-        WaitDI DI_Fixa_Peça_1_Av, 0 \MaxTime:= 5 \TimeFlag:= timeout_rc;
-        WaitDI DI_Fixa_Peça_2_Av, 0 \MaxTime:= 5 \TimeFlag:= timeout_rc;
-        WaitDI DI_Fixa_Peça_1_Rc, 1 \MaxTime:= 5 \TimeFlag:= timeout_rc;
-        WaitDI DI_Fixa_Peça_2_Rc, 1 \MaxTime:= 5 \TimeFlag:= timeout_rc;
-        IF timeout_rc = TRUE THEN
-            SetDO PN_OUT_DO_Cil_NRc, 1;
+        WaitDI DI_Fixa_Peça_1_Av, 0\MaxTime:= 5\TimeFlag:=timeout_rc1;
+        WaitDI DI_Fixa_Peça_2_Av, 0\MaxTime:= 5\TimeFlag:=timeout_rc2;
+        WaitDI DI_Fixa_Peça_1_Rc, 1\MaxTime:= 5\TimeFlag:=timeout_rc3;
+        WaitDI DI_Fixa_Peça_2_Rc, 1\MaxTime:= 5\TimeFlag:=timeout_rc4;
+        IF (timeout_rc1 OR timeout_rc2 OR timeout_rc3 OR timeout_rc4) = TRUE THEN
+            PulseDO\PLength:=1, PN_OUT_DO_Cil_NRc;
+            TPWrite "Supervisao Sensores, Travas não Recuaram";
             Stop;
             GOTO init_dp;
         ENDIF
@@ -4199,7 +4255,8 @@ inpos_fam_4:
         
     continue:
         SetDO \Sync, PN_OUT_Solicita_Fecha_Garra, 1;    !Solicita Fechamento
-        WaitDI PN_IN_Garra_Trabalho_OK, 1;
+        WaitDI PN_IN_Garra_Aberta, 0;
+        WaitDI PN_IN_Garra_Fechada, 1;
         SetDO \Sync, PN_OUT_Solicita_Fecha_Garra, 0;
          
         !Verifica se tem peça na garra
@@ -4215,12 +4272,13 @@ inpos_fam_4:
         SetDO \Sync, DO_Av_Fixação_Peça, 1;
         !Wait sensores avançado
         WaitTime 1;
-        WaitDI DI_Fixa_Peça_1_Rc, 0 \MaxTime:= 5 \TimeFlag:= timeout_av;
-        WaitDI DI_Fixa_Peça_2_Rc, 0 \MaxTime:= 5 \TimeFlag:= timeout_av;
-        WaitDI DI_Fixa_Peça_1_Av, 1 \MaxTime:= 5 \TimeFlag:= timeout_av;
-        WaitDI DI_Fixa_Peça_2_Av, 1 \MaxTime:= 5 \TimeFlag:= timeout_av;
-        IF timeout_av = TRUE THEN
-            SetDO PN_OUT_DO_Cil_NAv, 1;
+        WaitDI DI_Fixa_Peça_1_Rc, 0\MaxTime:= 5\TimeFlag:=timeout_av1;
+        WaitDI DI_Fixa_Peça_2_Rc, 0\MaxTime:= 5\TimeFlag:=timeout_av2;
+        WaitDI DI_Fixa_Peça_1_Av, 1\MaxTime:= 5\TimeFlag:=timeout_av3;
+        WaitDI DI_Fixa_Peça_2_Av, 1\MaxTime:= 5\TimeFlag:=timeout_av4;
+        IF (timeout_av1 OR timeout_av2 OR timeout_av3 OR timeout_av4) = TRUE THEN
+            PulseDO\PLength:=1, PN_OUT_DO_Cil_NAv;
+            TPWrite "Supervisao Sensores, Travas não Avançaram";
             Stop;
             GOTO init_tp;
         ENDIF
@@ -4253,9 +4311,9 @@ inpos_fam_4:
      inicio:
         IF DInput (DI_Pres_Peça_Berço_1) = 0 AND DInput (DI_Pres_Peça_Berço_2) = 1 GOTO Fim;
         
+        PulseDO\PLength:=1, PN_OUT_Produto_Existente;
         TPErase;
         TPWrite "Sensor de presença de peça no berço acionado. Verifique";
-        SetDO PN_OUT_Produto_Existente, 1;
         Stop;
         GOTO inicio;
         
@@ -4265,6 +4323,7 @@ inpos_fam_4:
     PROC Garante_Comandos_0()
         SetDO \Sync, PN_OUT_Solicita_Abertura, 0;
         SetDO \Sync, PN_OUT_Solicita_Fecha_Garra, 0;
+        SetDO\Sync, PN_OUT_Programa_Finalizado, 0;
     ENDPROC
     PROC Verifica_Garra_Vazia()
         
@@ -4398,6 +4457,28 @@ inpos_fam_4:
         MoveJ pPosição_Trabalho, sMov_Geral_Com_Produto, fine, tGarra \WObj:=wobj0;
                 
    Fim:     
+    ENDPROC
+    PROC Pos_Home_Manualmente()
+        !Movimente manualmente o robô até uma posição em que esteja livre de colisão e acione os comandos abaixo.
+        
+    verif: 
+        pPosição_Atual := CRobT(\Tool:=tGarra \WObj:=wobj0);
+        
+        nAux_Limite_Low := 550;
+        IF (pPosição_Atual.trans.z > nAux_Limite_Low) THEN
+            GOTO DoHome;
+        ELSE
+            TPErase;
+            TPWrite "Posicione Robô mais Alto";
+            Stop\NoRegain;
+            GOTO verif;
+        ENDIF
+        
+    DoHome:
+        MoveJ pPosição_Trabalho, sMov_Geral_Sem_Produto, fine, tGarra \WObj:=wobj0;
+        SetDO PN_OUT_Pos_Home_Manual, 0;
+        
+        
     ENDPROC
     
 ENDMODULE

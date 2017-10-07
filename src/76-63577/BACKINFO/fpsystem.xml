@@ -21,11 +21,11 @@
     <DATA id="AdditionalTestView">
       <PROP name="TestView" value="" />
     </DATA>
-    <DATA id="Programmable Key_3">
-      <PROP name="type" value="None" />
-      <PROP name="allowInAuto" value="No" />
-      <PROP name="pressed" value="" />
-      <PROP name="target" value="" />
+    <DATA id="ABB.Robotics.Tps.FileExplorer.TpsViewFileExplorer">
+      <PROP name="LASTPATH" value="/USB/" />
+    </DATA>
+    <DATA id="UserSettings">
+      <PROP name="RapidEditorFontIndex" value="5" />
     </DATA>
     <DATA id="ViewInManFull">
       <PROP name="text" value="PARAM_TXT_VIEWINMANFULL" />
@@ -48,18 +48,21 @@
       <PROP name="target" value="" />
     </DATA>
     <DATA id="Program Editor">
-      <PROP name="HideDeclarations" value="True" />
-      <PROP name="ShowOnlyServiceRoutines" value="True" />
+      <PROP name="HideDeclarations" value="False" />
+      <PROP name="ShowOnlyServiceRoutines" value="False" />
     </DATA>
-    <DATA id="ChangeArgument T_ROB1 ToPoint">
-      <PROP name="FilterString" value="PP" />
+    <DATA id="Programmable Key_3">
+      <PROP name="type" value="None" />
+      <PROP name="allowInAuto" value="No" />
+      <PROP name="pressed" value="" />
+      <PROP name="target" value="" />
     </DATA>
     <DATA id="GoToPosition ROB_1">
       <PROP name="FilterScope" value="All" />
       <PROP name="FilterString" value="" />
     </DATA>
     <DATA id="Backup Restore">
-      <PROP name="LastPath" value="ctrl:/bd0/" />
+      <PROP name="LastPath" value="ctrl:/hd0a/BACKUP/" />
     </DATA>
     <DATA id="UASViewLevel">
       <PROP name="text" value="PARAM_TXT_UASVIEWLEVEL" />
@@ -75,6 +78,9 @@
       <PROP name="allowInAuto" value="No" />
       <PROP name="pressed" value="" />
       <PROP name="target" value="" />
+    </DATA>
+    <DATA id="ChangeArgument T_ROB1 ToPoint">
+      <PROP name="FilterString" value="PP" />
     </DATA>
     <DATA id="Programmable Key_1">
       <PROP name="type" value="None" />

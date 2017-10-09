@@ -2,7 +2,7 @@ MODULE MainModule
 	CONST robtarget pPega_Esteira_Entrada_Fam_1:=[[-892.30,-8.73,114.94],[0.00890689,0.505902,-0.86254,0.00289884],[1,0,1,0],[2789.87,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pPega_Esteira_Entrada_Fam_2:=[[-903.12,22.56,113.13],[0.00995181,0.502068,-0.864764,0.00345378],[1,0,1,0],[2790.48,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pPega_Esteira_Entrada_Fam_3:=[[-856.19,17.95,113.21],[0.011327,0.469326,-0.882951,0.00179029],[1,0,1,0],[2789.01,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    CONST robtarget pPega_Esteira_Entrada_Fam_4:=[[-859.62,53.63,114.15],[0.0118491,0.475165,-0.879814,0.00216132],[1,0,1,0],[2788.09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget pPega_Esteira_Entrada_Fam_4:=[[-859.63,53.62,114.16],[0.0118197,0.463249,-0.886146,0.00231831],[1,0,1,0],[2788.09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pDepos_Esteira_Saída_Fam_1:=[[3914.59,-522.52,391.38],[0.00215515,-0.50478,0.863171,0.0113072],[-2,0,-1,0],[2786.14,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pDepos_Esteira_Saída_Fam_2:=[[3902.08,-490.79,391.46],[0.000724518,0.504333,-0.86348,-0.00693714],[-2,0,-1,0],[2786.08,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pDepos_Esteira_Saída_Fam_3:=[[3948.36,-498.11,391.19],[0.00179139,-0.467512,0.883916,0.0109667],[-2,0,-1,0],[2786.12,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -4184,85 +4184,112 @@ inpos_fam_4:
         Comunica_CLP;
         
 	ENDPROC
+    
+    !****ABRIR GARRA (RECUAR SERVOS)
     PROC Abre_Garra()
 		!Inicio de ciclo de abertura de garra
-    
-    
-    verifica_novamente:
-        nNum_Fam := GInput(PN_IN_Numero_Familia);
-        WaitTime 0.2;
-        SetGO PN_GO_Modelo_Produto, nNum_Fam;
-        WaitTime 0.2;
-    
-        IF GOutput (PN_GO_Modelo_Produto) = nNum_Fam THEN
-            GOTO continue;
-        ELSE
-            TPWrite "CLP não carregou valor correto para abertura de garra";
-            StopMove;
-            GOTO verifica_novamente;
-        ENDIF              
+
+        verifica_novamente:
+            nNum_Fam := GInput(PN_IN_Numero_Familia);
+            WaitTime 0.2;
+            SetGO PN_GO_Modelo_Produto, nNum_Fam;
+            WaitTime 0.2;
         
-    continue:
-        WaitDI DI_Fixa_Peça_1_Av, 0;
-        WaitDI DI_Fixa_Peça_2_Av, 0;
-        WaitDI DI_Fixa_Peça_1_Rc, 1;
-        WaitDI DI_Fixa_Peça_2_Rc, 1;
-        
+            IF GOutput (PN_GO_Modelo_Produto) = nNum_Fam THEN
+                GOTO continue;
+            ELSE
+                TPWrite "CLP não carregou valor correto para abertura de garra";
+                StopMove;
+                GOTO verifica_novamente;
+            ENDIF              
+            
+        continue:           
+            !Revisa se cilindros estão recuados
+            WaitDI DI_Fixa_Peça_1_Av, 0\MaxTime:= 5\TimeFlag:=timeout_rc1;
+            WaitDI DI_Fixa_Peça_2_Av, 0\MaxTime:= 5\TimeFlag:=timeout_rc2;
+            WaitDI DI_Fixa_Peça_1_Rc, 1\MaxTime:= 5\TimeFlag:=timeout_rc3;
+            WaitDI DI_Fixa_Peça_2_Rc, 1\MaxTime:= 5\TimeFlag:=timeout_rc4;
+            
+            !Se inconsistente, avisa erro:
+            IF (timeout_rc1 OR timeout_rc2 OR timeout_rc3 OR timeout_rc4) = TRUE THEN
+                PulseDO\PLength:=1, PN_OUT_DO_Cil_NRc;
+                TPWrite "Inconsistencia Processo, Travas nao estao recuadas!";
+                Stop;
+                GOTO continue;
+            ENDIF
+            
         !Solicita Abertura de Garra
         SetDO \Sync, PN_OUT_Solicita_Abertura, 1;
         WaitTime 0.5;
-        WaitDI PN_IN_Garra_Fechada, 0;
-        WaitDI PN_IN_Garra_Aberta, 1;
-        WaitTime 0.5;
-        SetDO \Sync, PN_OUT_Solicita_Abertura, 0;
+        WaitDI PN_IN_Garra_Fechada, 0\MaxTime:= 5\TimeFlag:=timeout_rc1;
+        WaitDI PN_IN_Garra_Aberta, 1\MaxTime:= 5\TimeFlag:=timeout_rc2;
         
-	ENDPROC
-    PROC Destrava_Produto()
-    init_dp:  
-        SetDO PN_OUT_DO_Cil_NRc, 0;
-    
-        !Destrava produto na garra
-        SetDO \Sync, DO_Av_Fixação_Peça, 0;
-        SetDO \Sync, DO_Rc_Fixação_Peça, 1;
-        WaitDI DI_Fixa_Peça_1_Av, 0\MaxTime:= 5\TimeFlag:=timeout_rc1;
-        WaitDI DI_Fixa_Peça_2_Av, 0\MaxTime:= 5\TimeFlag:=timeout_rc2;
-        WaitDI DI_Fixa_Peça_1_Rc, 1\MaxTime:= 5\TimeFlag:=timeout_rc3;
-        WaitDI DI_Fixa_Peça_2_Rc, 1\MaxTime:= 5\TimeFlag:=timeout_rc4;
-        IF (timeout_rc1 OR timeout_rc2 OR timeout_rc3 OR timeout_rc4) = TRUE THEN
+        !Se não abriu, avisa erro:
+        IF (timeout_rc1 OR timeout_rc2) = TRUE THEN
             PulseDO\PLength:=1, PN_OUT_DO_Cil_NRc;
-            TPWrite "Supervisao Sensores, Travas não Recuaram";
+            SetDO \Sync, PN_OUT_Solicita_Abertura, 0;
+            TPWrite "Supervisao Posicionamento Garra, Servos nao Abriram!";
             Stop;
-            GOTO init_dp;
+            GOTO continue;
         ENDIF
         
-    ENDPROC
-    PROC Fecha_Garra()
-		!Inicio de ciclo de fechamento de garra
-    
-    verifica_novamente:   
-        nNum_Fam := GInput(PN_IN_Numero_Familia);
-        WaitTime 0.2;
-        SetGO PN_GO_Modelo_Produto, nNum_Fam;
-        WaitTime 0.2;
-        
-        IF GOutput (PN_GO_Modelo_Produto) = nNum_Fam THEN
-            GOTO continue;
-        ELSE
-            TPWrite "CLP não carregou valor correto para fechamento de garra";
-            StopMove;
-            GOTO verifica_novamente;
-        ENDIF              
-        
-    continue:
-        SetDO \Sync, PN_OUT_Solicita_Fecha_Garra, 1;    !Solicita Fechamento
-        WaitDI PN_IN_Garra_Aberta, 0;
-        WaitDI PN_IN_Garra_Fechada, 1;
-        SetDO \Sync, PN_OUT_Solicita_Fecha_Garra, 0;
-         
-        !Verifica se tem peça na garra
-        !Logica aqui
-             
+        SetDO \Sync, PN_OUT_Solicita_Abertura, 0;
+            
 	ENDPROC
+    
+    !****FECHAR GARRA (AVANÇAR SERVOS)
+    PROC Fecha_Garra()
+    	!Inicio de ciclo de fechamento de garra
+        
+        verifica_novamente:   
+            nNum_Fam := GInput(PN_IN_Numero_Familia);
+            WaitTime 0.2;
+            SetGO PN_GO_Modelo_Produto, nNum_Fam;
+            WaitTime 0.2;
+            
+            IF GOutput (PN_GO_Modelo_Produto) = nNum_Fam THEN
+                GOTO continue;
+            ELSE
+                TPWrite "CLP não carregou valor correto para fechamento de garra";
+                StopMove;
+                GOTO verifica_novamente;
+            ENDIF              
+            
+        continue:
+
+            !Revisa se cilindros estão recuados
+            WaitDI DI_Fixa_Peça_1_Av, 0\MaxTime:= 5\TimeFlag:=timeout_rc1;
+            WaitDI DI_Fixa_Peça_2_Av, 0\MaxTime:= 5\TimeFlag:=timeout_rc2;
+            WaitDI DI_Fixa_Peça_1_Rc, 1\MaxTime:= 5\TimeFlag:=timeout_rc3;
+            WaitDI DI_Fixa_Peça_2_Rc, 1\MaxTime:= 5\TimeFlag:=timeout_rc4;
+            
+            !Se inconsistente, avisa erro:
+            IF (timeout_rc1 OR timeout_rc2 OR timeout_rc3 OR timeout_rc4) = TRUE THEN
+                PulseDO\PLength:=1, PN_OUT_DO_Cil_NRc;
+                TPWrite "Inconsistencia Processo, Travas nao estao recuadas!";
+                Stop;
+                GOTO continue;
+            ENDIF
+        
+            !Solicita Fechamento Servos:
+            SetDO \Sync, PN_OUT_Solicita_Fecha_Garra, 1;    
+            
+            WaitDI PN_IN_Garra_Aberta, 0\MaxTime:= 5\TimeFlag:=timeout_av1;
+            WaitDI PN_IN_Garra_Fechada, 1\MaxTime:= 5\TimeFlag:=timeout_av2;
+            
+            !Se não abriu, avisa erro:
+            IF (timeout_av1 OR timeout_av2) = TRUE THEN
+                PulseDO\PLength:=1, PN_OUT_DO_Cil_NAv;
+                SetDO \Sync, PN_OUT_Solicita_Fecha_Garra, 0;
+                TPWrite "Supervisao Posicionamento Garra, Servos nao Fecharam!";
+                Stop;
+                GOTO continue;
+            ENDIF
+            
+            SetDO \Sync, PN_OUT_Solicita_Fecha_Garra, 0;                
+	ENDPROC
+    
+    !****TRAVAR (COLOCAR INDEX CILINDROS)
     PROC Trava_Produto()
      init_tp:    
         SetDO PN_OUT_DO_Cil_NAv, 0;
@@ -4284,6 +4311,27 @@ inpos_fam_4:
         ENDIF
         
     ENDPROC
+    
+    !****DESTRAVAR (RETIRAR INDEX CILINDROS)
+    PROC Destrava_Produto()
+    init_dp:  
+        SetDO PN_OUT_DO_Cil_NRc, 0;
+    
+        !Destrava produto na garra
+        SetDO \Sync, DO_Av_Fixação_Peça, 0;
+        SetDO \Sync, DO_Rc_Fixação_Peça, 1;
+        WaitDI DI_Fixa_Peça_1_Av, 0\MaxTime:= 5\TimeFlag:=timeout_rc1;
+        WaitDI DI_Fixa_Peça_2_Av, 0\MaxTime:= 5\TimeFlag:=timeout_rc2;
+        WaitDI DI_Fixa_Peça_1_Rc, 1\MaxTime:= 5\TimeFlag:=timeout_rc3;
+        WaitDI DI_Fixa_Peça_2_Rc, 1\MaxTime:= 5\TimeFlag:=timeout_rc4;
+        IF (timeout_rc1 OR timeout_rc2 OR timeout_rc3 OR timeout_rc4) = TRUE THEN
+            PulseDO\PLength:=1, PN_OUT_DO_Cil_NRc;
+            TPWrite "Supervisao Sensores, Travas não Recuaram";
+            Stop;
+            GOTO init_dp;
+        ENDIF       
+    ENDPROC
+    
 	PROC rTesteEixo1()
 		MoveJ [[4357.31,-1398.45,1978.14],[0.687563,0.27921,0.236299,0.627265],[-1,0,1,1],[2346.44,9E+09,9E+09,9E+09,9E+09,9E+09]], v2500, z50, tGarra\WObj:=wBuffer_Esq;
 		WaitTime\InPos, 1;

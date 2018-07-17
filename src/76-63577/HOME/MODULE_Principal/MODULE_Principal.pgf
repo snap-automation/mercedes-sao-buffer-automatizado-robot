@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Program>
+	<Module>Wobj_FRAME_PalletSaida.mod</Module>
+	<Module>Wobj_FRAME_PalletEntrada.mod</Module>
+	<Module>Wobj_FRAME_BufferA.mod</Module>
+	<Module>MODULE_Principal.mod</Module>
+</Program>

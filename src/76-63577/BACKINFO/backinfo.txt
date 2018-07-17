@@ -1,8 +1,8 @@
 #
 # Generated backup file, do not edit.
 #
-# Originally at: /hd0a/temp/d9320091
-# 2017-10-09  19:51:04
+# Originally at: /hd0a/temp/b4fa4870
+# 2018-07-17  14:09:33
 #
 >>SYSTEM_ID:
 76-63577
@@ -48,9 +48,18 @@ MOC.cfg
 MMC.cfg
 
 
->>TASK1: (T_ROB1,NewProgramName,)
+>>TASK1: (T_PROG_KEYS,,)
 SYSMOD/user.sys @ user.sys
-PROGMOD/MainModule.mod @ mainmodule.mod
+PROGMOD/MODULE_ProgKeys.mod @ module_progkeys.mod
+
+>>TASK3: (T_ROB1,JVS_PI1800_ABB_76-63577,)
+PROGMOD/MODULE_T_ROB1.mod @ module_t_rob1.mod
+SYSMOD/user.sys @ user.sys
+PROGMOD/Wobj_FRAME_BufferC.mod @ wobj_frame_bufferc.mod
+PROGMOD/Wobj_FRAME_BufferB.mod @ wobj_frame_bufferb.mod
+PROGMOD/Wobj_FRAME_BufferA.mod @ wobj_frame_buffera.mod
+PROGMOD/Wobj_FRAME_PalletSaida.mod @ wobj_frame_palletsaida.mod
+PROGMOD/Wobj_FRAME_PalletEntrada.mod @ wobj_frame_palletentrada.mod
 
 
 >>EOF:

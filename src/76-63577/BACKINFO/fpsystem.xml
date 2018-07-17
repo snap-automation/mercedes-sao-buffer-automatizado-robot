@@ -17,15 +17,28 @@
     <DATA id="DefaultPath">
       <PROP name="BackupRestore" value="" />
       <PROP name="Configuration" value="" />
+      <PROP name="RapidPrograms" value="" />
+      <PROP name="RapidModules" value="" />
     </DATA>
     <DATA id="AdditionalTestView">
       <PROP name="TestView" value="" />
     </DATA>
+    <DATA id="ViewInManFull">
+      <PROP name="text" value="PARAM_TXT_VIEWINMANFULL" />
+      <PROP name="dll" value="" />
+      <PROP name="type" value="" />
+    </DATA>
     <DATA id="ABB.Robotics.Tps.FileExplorer.TpsViewFileExplorer">
-      <PROP name="LASTPATH" value="/USB/" />
+      <PROP name="LASTPATH" value="/hd0a/76-63577/BACKUP/" />
     </DATA>
     <DATA id="UserSettings">
       <PROP name="RapidEditorFontIndex" value="5" />
+    </DATA>
+    <DATA id="Programmable Key_2">
+      <PROP name="type" value="Output" />
+      <PROP name="allowInAuto" value="No" />
+      <PROP name="pressed" value="Toggle" />
+      <PROP name="target" value="VIRTUAL_FechaGarra" />
     </DATA>
     <DATA id="ViewInAuto">
       <PROP name="text" value="PARAM_TXT_VIEWINAUTO" />
@@ -36,28 +49,22 @@
       <PROP name="FilterScope" value="All" />
       <PROP name="FilterString" value="PPE" />
     </DATA>
-    <DATA id="Programmable Key_2">
-      <PROP name="type" value="None" />
-      <PROP name="allowInAuto" value="No" />
-      <PROP name="pressed" value="" />
-      <PROP name="target" value="" />
+    <DATA id="TaskPanelSettings">
+      <PROP name="level" value="AllTasks" />
     </DATA>
     <DATA id="Program Editor">
       <PROP name="HideDeclarations" value="True" />
       <PROP name="ShowOnlyServiceRoutines" value="False" />
     </DATA>
     <DATA id="Programmable Key_3">
-      <PROP name="type" value="None" />
+      <PROP name="type" value="Output" />
       <PROP name="allowInAuto" value="No" />
-      <PROP name="pressed" value="" />
-      <PROP name="target" value="" />
+      <PROP name="pressed" value="PressRelease" />
+      <PROP name="target" value="VIRTUAL_DestravaIndexGarra" />
     </DATA>
     <DATA id="GoToPosition ROB_1">
       <PROP name="FilterScope" value="All" />
-      <PROP name="FilterString" value="" />
-    </DATA>
-    <DATA id="ChangeInstruction">
-      <PROP name="Last Assignment DataType" value="jointtarget" />
+      <PROP name="FilterString" value="PDE" />
     </DATA>
     <DATA id="Backup Restore">
       <PROP name="LastPath" value="ctrl:/hd0a/BACKUP/" />
@@ -72,24 +79,22 @@
       <PROP name="Signal view layout" value="Default" />
     </DATA>
     <DATA id="Programmable Key_4">
-      <PROP name="type" value="None" />
+      <PROP name="type" value="Output" />
       <PROP name="allowInAuto" value="No" />
-      <PROP name="pressed" value="" />
-      <PROP name="target" value="" />
+      <PROP name="pressed" value="PressRelease" />
+      <PROP name="target" value="VIRTUAL_TravaIndexGarra" />
     </DATA>
     <DATA id="ChangeArgument T_ROB1 ToPoint">
       <PROP name="FilterString" value="PP" />
     </DATA>
     <DATA id="Programmable Key_1">
-      <PROP name="type" value="None" />
+      <PROP name="type" value="Output" />
       <PROP name="allowInAuto" value="No" />
-      <PROP name="pressed" value="" />
-      <PROP name="target" value="" />
+      <PROP name="pressed" value="PressRelease" />
+      <PROP name="target" value="VIRTUAL_AbreGarra" />
     </DATA>
-    <DATA id="ViewInManFull">
-      <PROP name="text" value="PARAM_TXT_VIEWINMANFULL" />
-      <PROP name="dll" value="" />
-      <PROP name="type" value="" />
+    <DATA id="ChangeInstruction">
+      <PROP name="Last Assignment DataType" value="string" />
     </DATA>
     <DATA id="QuickSet">
       <PROP name="IncrementToggle" value="Small" />
@@ -108,7 +113,7 @@
       <PROP name="Analog Output Filter" value="" />
       <PROP name="Group Input Filter" value="" />
       <PROP name="Group Output Filter" value="" />
-      <PROP name="Most Common Filter" value="" />
+      <PROP name="Most Common Filter" value="PN" />
       <PROP name="Safety Signal Filter" value="" />
       <PROP name="Alias IO Filter" value="" />
       <PROP name="Simulated IO FIlter" value="" />

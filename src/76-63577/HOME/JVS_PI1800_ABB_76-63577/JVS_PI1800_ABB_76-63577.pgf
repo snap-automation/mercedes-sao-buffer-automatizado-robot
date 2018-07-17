@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Program>
+	<Module>MainModule.mod</Module>
+	<Module>wObj_AreaBuffers1.mod</Module>
+	<Module>Wobj_wObj_Teste.mod</Module>
+</Program>

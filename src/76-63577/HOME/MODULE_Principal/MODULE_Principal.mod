@@ -1,12 +1,30 @@
-MODULE MainModule
-	CONST robtarget pPega_Esteira_Entrada_Fam_1:=[[-892.30,-8.73,114.94],[0.00890689,0.505902,-0.86254,0.00289884],[1,0,1,0],[2789.87,9E+09,9E+09,9E+09,9E+09,9E+09]];
+MODULE MODULE_Principal
+    !Áreas de Trabalho
+    !São o elemento mais importante pois garante o posicionamento de cada ponto
+    !Este robô não faz o translado automático X/Y/Z de acordo com o 7o eixo, portanto,
+    !Cada área de trabalho deverá ter uma posição de 7o eixo única
+    !Para facilitar o trabalho, usaremos números redondos
+	PERS wobjdata wBuffer_Esq:=[FALSE,TRUE,"",[[-1496.69,1441.74,167.277],[0.999985,0.000248147,0.000724201,0.00543068]],[[-1745.23,1108.35,145.45],[0.999999,4.69146E-06,-2.92366E-05,0.00131126]]];
+	PERS wobjdata wBuffer_Dir:=[FALSE,TRUE,"",[[1299.71,-1300.57,-138.144],[0.00233014,-0.00251559,0.000491525,-0.999994]],[[-1.09887,-0.647902,1.21711],[0.999998,0.000178717,0.00166855,0.000629553]]];
+	PERS wobjdata wBuffer_Front:=[FALSE,TRUE,"",[[0,0,0],[1,0,0,0]],[[1817.4,652.046,95.7393],[0.711267,5.89363E-05,4.0665E-05,-0.702922]]];
+    PERS wobjdata wOD_FrameAtual;
+
+    
+    !Posições de Trabalho criadas indivualmente de modo a facilitar a remarcação dos mesmos através do TP (Modo "Manobra")
+	
+    !Pontos de Pega Pallet Entrada
+    CONST robtarget pPega_Esteira_Entrada_Fam_1:=[[-892.30,-8.73,114.94],[0.00890689,0.505902,-0.86254,0.00289884],[1,0,1,0],[2789.87,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pPega_Esteira_Entrada_Fam_2:=[[-903.12,22.56,113.13],[0.00995181,0.502068,-0.864764,0.00345378],[1,0,1,0],[2790.48,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pPega_Esteira_Entrada_Fam_3:=[[-856.19,17.95,113.21],[0.011327,0.469326,-0.882951,0.00179029],[1,0,1,0],[2789.01,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pPega_Esteira_Entrada_Fam_4:=[[-859.63,53.62,114.16],[0.0118197,0.463249,-0.886146,0.00231831],[1,0,1,0],[2788.09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    
+    !Pontos de Entrega Pallet Saída
     CONST robtarget pDepos_Esteira_Saída_Fam_1:=[[3914.59,-522.52,391.38],[0.00215515,-0.50478,0.863171,0.0113072],[-2,0,-1,0],[2786.14,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pDepos_Esteira_Saída_Fam_2:=[[3902.08,-490.79,391.46],[0.000724518,0.504333,-0.86348,-0.00693714],[-2,0,-1,0],[2786.08,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pDepos_Esteira_Saída_Fam_3:=[[3948.36,-498.11,391.19],[0.00179139,-0.467512,0.883916,0.0109667],[-2,0,-1,0],[2786.12,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pDepos_Esteira_Saída_Fam_4:=[[3946.87,-461.76,390.86],[0.00261336,-0.469104,0.88306,0.0117412],[-2,0,-1,0],[2786.2,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    
+    !Pontos de Pega/Entrega no Buffer
     CONST robtarget pBuffer_Pos_1_Fam_1:=[[7.37,772.71,-227.00],[0.0094332,0.495816,-0.868359,-0.0055283],[0,0,0,0],[-2759.32,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pBuffer_Pos_1_Fam_2:=[[-0.66,767.79,-228.84],[0.00851402,0.493992,-0.86941,-0.00504847],[0,0,0,0],[-2797.15,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pBuffer_Pos_1_Fam_3:=[[43.89,758.64,-227.72],[0.00901302,0.460325,-0.887687,-0.00558647],[0,0,0,0],[-2799.3,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -407,6 +425,9 @@ MODULE MainModule
     CONST robtarget pFrente_Esteira_Saida:=[[3007.43,-529.22,1142.44],[0.00765108,-0.508049,0.861227,0.0107125],[-2,0,-1,0],[2780.81,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pHome_Position:=[[0.00,0.00,0.00],[0.707107,0,0.707107,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget pPosição_Trabalho:=[[1434.02,88.38,798.73],[0.0242018,-0.101336,0.994552,0.00339791],[0,0,-1,0],[2588.4,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    
+    PERS jointtarget jCalib:=[[0,0,0,0,0,0],[0,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    
     CONST pos pOfst_Acima_Buffer:=[0,0,900];
     CONST pos pOfst_Acima_Buffer_Sem_Produto:=[0,0,600];
     CONST pos pOfst_Acima_Berço_Buffer:=[0,0,300];
@@ -414,7 +435,7 @@ MODULE MainModule
     CONST pos pOfst_Aprox_Final_Depos:=[0,0,5];
     CONST pos pOfst_Aprox_Inicial_Pega:=[0,0,0];
     CONST pos pOfst_Aprox_Berço_Est_Entrada:=[0,0,300];
-    CONST pos pOfst_Aprox_Pega_Est_Entrada:=[0,0,50];
+    CONST pos pOfst_Aprox_PegaEsteiraEntrada:=[0,0,50];
     CONST pos pOfst_Aprox_Berço_Est_Saida:=[0,0,500];
     CONST pos pOfst_Aprox_Depos_Est_Saida:=[0,0,50];
     CONST pos pOfst_ZY_Familia_3:=[0,10,40];
@@ -422,8 +443,10 @@ MODULE MainModule
     CONST pos pOfst_ZY_Familia_4:=[-4,-12,45];
     CONST pos pOfst_ZY_Est_Sai_Familia_4:=[4,-15,45];
     CONST pos pOfst_Z_Familia_4:=[0,0,45];
+    
     VAR bool timeout_av;
     VAR bool timeout_rc;
+    
     VAR robtarget pPosição_Atual:=[[0.00,0.00,0.00],[0.707107,0,0.707107,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     VAR robtarget pPosição_Desejada:=[[0.00,0.00,0.00],[0.707107,0,0.707107,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     VAR robtarget pPosição_Final_Est_Entrada:=[[0.00,0.00,0.00],[0.707107,0,0.707107,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -431,10 +454,12 @@ MODULE MainModule
     VAR robtarget pPosição_Final_Buffer:=[[0.00,0.00,0.00],[0.707107,0,0.707107,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     VAR robtarget pMov_Pega_Esteira_Entrada:=[[-892.63,-9.52,114.94],[0.00890601,0.506032,-0.862464,0.00290069],[1,0,1,0],[2789.87,9E+09,9E+09,9E+09,9E+09,9E+09]];
     VAR robtarget pMov_Depos_Esteira_Saída:=[[0.00,0.00,0.00],[0.707107,0,0.707107,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    VAR robtarget pMov_Pega_Depos_Buffer:=[[0.00,0.00,0.00],[0.707107,0,0.707107,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];    
+    VAR robtarget pMov_Pega_Depos_Buffer:=[[0.00,0.00,0.00],[0.707107,0,0.707107,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     VAR robtarget pMov_Posicionar_Home:=[[0.00,0.00,0.00],[0.707107,0,0.707107,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    
     VAR num nPos_Buffer;
     VAR num nNum_Fam;
+    
     CONST num nAcc_Mov_Pega_Depos := 50;
     CONST num nRamp_Mov_Pega_Depos := 40 ;
     CONST num nAcc_Mov_Geral := 80;
@@ -442,16 +467,16 @@ MODULE MainModule
     CONST num nSens_Colid_Mov_Geral := 200;
     CONST num nSens_Colid_Aprox := 80;
     CONST num nLimite_Home := 20;
+    
     VAR num nAux_Limite_Max;
     VAR num nAux_Limite_Low;
+    
     PERS tooldata tGarra:=[TRUE,[[0,0,622.752],[1,0,0,0]],[65,[482,30,70],[1,0,0,0],0,0,0]];
 	PERS loaddata lFamilia_1:=[170,[1,1,1],[1,0,0,0],0,0,0];
 	PERS loaddata lFamilia_2:=[228,[1,1,1],[1,0,0,0],0,0,0];
 	PERS loaddata lFamilia_3:=[260,[1,1,1],[1,0,0,0],0,0,0];
 	PERS loaddata lFamilia_4:=[282,[1,1,1],[1,0,0,0],0,0,0];
-	PERS wobjdata wBuffer_Esq:=[FALSE,TRUE,"",[[0,0,0],[1,0,0,0]],[[-1745.23,1108.35,145.45],[0.999999,4.69146E-06,-2.92366E-05,0.00131126]]];
-	PERS wobjdata wBuffer_Dir:=[FALSE,TRUE,"",[[1299.71,-1300.57,-138.144],[0.00233014,-0.00251559,0.000491525,-0.999994]],[[-1.09887,-0.647902,1.21711],[0.999998,0.000178717,0.00166855,0.000629553]]];
-	PERS wobjdata wBuffer_Front:=[FALSE,TRUE,"",[[0,0,0],[1,0,0,0]],[[1817.4,652.046,95.7393],[0.711267,5.89363E-05,4.0665E-05,-0.702922]]];
+    
     CONST speeddata sMov_Geral_Sem_Produto := [1100, 100, 1700, 100];
     CONST speeddata sMov_Geral_Com_Produto := [800, 100, 1700, 100];
     CONST speeddata sMov_Aprox_Berço_Sem_Produto := [700, 100, 2000, 100];
@@ -459,9 +484,11 @@ MODULE MainModule
     CONST speeddata SMov_Fina := [200, 100, 600, 100];
     CONST speeddata SMov_SuperFina := [10, 100, 50, 100];
     CONST speeddata SMov_Levanta_Com_Produto := [100, 100, 300, 100];
-	CONST jointtarget jposRecolhidoEsteira:=[[153.109,-47.1242,51.2209,1.422,85.748,93.2914],[2772.08,9E+09,9E+09,9E+09,9E+09,9E+09]];
+	
+    CONST jointtarget jposRecolhidoEsteira:=[[153.109,-47.1242,51.2209,1.422,85.748,93.2914],[2772.08,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST jointtarget jposRecolhidoEsteiraSaida:=[[-153.109,-47.1241,51.2209,1.42205,85.748,-28.8738],[2772.09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-	VAR bool timeout_av1:=FALSE;
+	
+    VAR bool timeout_av1:=FALSE;
 	VAR bool timeout_av2:=FALSE;
 	VAR bool timeout_av3:=FALSE;
 	VAR bool timeout_av4:=FALSE;
@@ -470,10 +497,125 @@ MODULE MainModule
 	VAR bool timeout_rc3:=FALSE;
 	VAR bool timeout_rc4:=FALSE;
 	
-	PROC main()
-		!Inicio de Rotina Principal
+    !Pontos de Afericao..
+    CONST robtarget pCheck_00:=[[1572.55,-92.11,980.74],[0.00876174,-0.689037,-0.72434,-0.0219585],[-1,0,0,0],[255.75,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget pCheck_01:=[[1572.56,-92.11,980.76],[0.00875702,-0.689037,-0.72434,-0.0219629],[-1,0,0,0],[-216.075,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget pCheck_02:=[[1773.31,-1245.87,871.39],[0.00879832,0.40518,0.913936,0.0217377],[-1,0,0,0],[-1467.96,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget pCheck_03:=[[0,0,0],[1,0,0,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+    CONST robtarget pCheck_04:=[[0,0,0],[1,0,0,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+    CONST robtarget pCheck_05:=[[0,0,0],[1,0,0,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+    CONST robtarget pCheck_06:=[[0,0,0],[1,0,0,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+    CONST robtarget pCheck_07:=[[0,0,0],[1,0,0,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+    CONST robtarget pCheck_08:=[[0,0,0],[1,0,0,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+    CONST robtarget pCheck_09:=[[0,0,0],[1,0,0,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+    CONST robtarget pCheck:=[[1898.81,-1954.60,334.06],[0.00879221,0.405181,0.913936,0.0217398],[-1,0,0,0],[-2141.35,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget RT_AuxFrames:=[[0,0,300],[0,0.881412,-0.472319,0],[-2,0,-1,0],[2800,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    TASK PERS wobjdata FRAME_BufferA:=[FALSE,TRUE,"",[[-1256.49,1438.58,160.877],[0.999979,0.000183924,0.000269214,0.006496]],[[0,0,0],[1,0,0,0]]];
+    TASK PERS wobjdata FRAME_PalletEntrada:=[FALSE,TRUE,"",[[-2197.3,1274.56,425.547],[0.701353,0.0039156,-0.00227027,0.712799]],[[0,0,0],[1,0,0,0]]];
+    TASK PERS wobjdata FRAME_PalletSaida:=[FALSE,TRUE,"",[[-2365.58,-1158.69,461.896],[0.701359,0.00301904,0.000504585,0.712801]],[[0,0,0],[1,0,0,0]]];
+    
+    
+    !Criado aqui para facilitar, depois movimentar para o final
+    !*****************************************************************************************************************************
+    !FUNÇÕES EXTRAS: Teste de Posições no Buffer (Área "A" - à esquerda do robô quando de costas para as esteiras )
+    !*****************************************************************************************************************************
+    PROC EXTRAS_TesteBufferAreaA()
+        !Este programa irá enviar o robô à partir de home, index-por-index (de trás para frente) relacionados à área "A" do Buffer
         
-        !Teste_Eixo_7;
+        VAR Num i;
+        VAR Num f;
+        
+        VAR robtarget RT_PosicaoBuffer;
+        VAR robtarget RT_PosicaoAuxiliar;
+        VAR jointtarget RJ_PosicaoAuxiliar;
+        
+        !Primeiramente somente a família 1 (mais leve)
+        f := 1;
+        
+        !Inicializa Parametros
+        AccSet nAcc_Mov_Geral, nRamp_Mov_Geral;
+        motionsup \On \TuneValue:= nSens_Colid_Mov_Geral;
+        
+        !Está em Home?
+        MoveJ pPosição_Trabalho, sMov_Geral_Sem_Produto, fine, tGarra \WObj:=wobj0;
+        
+        !Vai para centro de massa
+        !Ponto intermediario centro de massa
+        RT_PosicaoAuxiliar := pBuffer_Pos_96_Fam_1;
+	    RJ_PosicaoAuxiliar := CalcJointT(RT_PosicaoAuxiliar, tGarra \WObj:=wBuffer_Esq);
+        RJ_PosicaoAuxiliar.robax.rax_2 := jposRecolhidoEsteira.robax.rax_2;
+        RJ_PosicaoAuxiliar.robax.rax_3 := jposRecolhidoEsteira.robax.rax_3;
+        RJ_PosicaoAuxiliar.robax.rax_4 := jposRecolhidoEsteira.robax.rax_4;
+        RJ_PosicaoAuxiliar.robax.rax_5 := jposRecolhidoEsteira.robax.rax_5;
+
+        MoveAbsJ RJ_PosicaoAuxiliar, sMov_Geral_Com_Produto, z200, tGarra\WObj:=wBuffer_Esq; 
+        
+        !index-por-index (de trás para frente)
+        FOR i FROM 99 TO 1 STEP -1 DO
+
+            !Verifica se index corresponde à área "A"
+            !Esta função somente faz posições da área "A"
+            IF GetAreaBuffer(i) <> "A" THEN
+                Break;
+            ENDIF
+            
+            !Lê o valor da posição através da descrição da tag
+            RT_PosicaoBuffer := GetPosicaoBuffer(i, f);
+            
+            !Lê qual o frame da posição atual
+            wOD_FrameAtual := GetWObjBuffer(i);
+            
+            !Vai para posição acima do local de deposita
+            RT_PosicaoAuxiliar := RT_PosicaoBuffer;
+            RT_PosicaoAuxiliar.trans := RT_PosicaoAuxiliar.trans + pOfst_Acima_Buffer;
+            
+            MoveL RT_PosicaoAuxiliar, sMov_Geral_Com_Produto, fine, tGarra \WObj:=wOD_FrameAtual;
+        
+            !Verifica se já existe peça na posição selecionada
+            GARRA_VerificarLaser;
+
+            !Ponto acima do berço
+            RT_PosicaoAuxiliar := RT_PosicaoBuffer;
+            RT_PosicaoAuxiliar.trans := RT_PosicaoAuxiliar.trans + pOfst_Acima_Berço_Buffer;
+            
+            MoveL RT_PosicaoAuxiliar, sMov_Aprox_Berço_Com_Produto, z50, tGarra \WObj:=wOD_FrameAtual;
+        
+            !Ponto de aproximação
+            AccSet nAcc_Mov_Pega_Depos, nRamp_Mov_Pega_Depos;
+            motionsup \On \TuneValue:= nSens_Colid_Aprox;
+            
+            RT_PosicaoAuxiliar := RT_PosicaoBuffer;
+            RT_PosicaoAuxiliar.trans := RT_PosicaoAuxiliar.trans + pOfst_Aprox_Pega_Depos_Buffer;
+            
+            MoveL pMov_Pega_Depos_Buffer, SMov_Fina, z50, tGarra \WObj:=wOD_FrameAtual;
+            
+            RT_PosicaoAuxiliar := RT_PosicaoBuffer;
+            RT_PosicaoAuxiliar.trans := RT_PosicaoAuxiliar.trans + pOfst_Aprox_Final_Depos;
+            
+            MoveL pMov_Pega_Depos_Buffer, SMov_SuperFina, z1, tGarra \WObj:=wOD_FrameAtual;
+            
+            !Avisa usuário
+            TPErase;
+            TPWrite "Robô na Posição Buffer " + NumToStr(i, 0) + "para Família " + NumToStr(f, 0);
+            Stop;
+            
+            !Usuário deu sequência: Sobe Garra e segue para a próxima
+            RT_PosicaoAuxiliar := RT_PosicaoBuffer;
+            RT_PosicaoAuxiliar.trans := RT_PosicaoAuxiliar.trans + pOfst_Acima_Berço_Buffer;
+            
+            MoveL RT_PosicaoAuxiliar, SMov_Levanta_Com_Produto, z80, tGarra \WObj:=wOD_FrameAtual;
+            
+            
+        ENDFOR
+       
+    ENDPROC
+    
+    
+    !*************************************************************************************************************************
+    !Main: Rotina Principal
+    !*************************************************************************************************************************
+	PROC A_PI1800_RotinaPrincipal()
+		!Inicio de Rotina Principal
         
         AccSet nAcc_Mov_Geral, nRamp_Mov_Geral;
         motionsup \On \TuneValue:= nSens_Colid_Mov_Geral;
@@ -530,7 +672,7 @@ MODULE MainModule
         !Aguarda clp enviar número de programa
         WaitGI PN_IN_Numero_Programa \NOTEQ, 0;
         
-        Garante_Comandos_0;
+        ResetFlags;
         
         !Verifica qual rotina executar
         IF GInput (PN_IN_Numero_Programa) = 1 THEN
@@ -539,25 +681,25 @@ MODULE MainModule
         ENDIF
         
         IF GInput (PN_IN_Numero_Programa) = 2 THEN
-            Verifica_Garra_Vazia;
-            Pega_Est_Entrada;
+            GARRA_VerificarGarraVazia;
+            PegaEsteiraEntrada;
             GOTO final;
         ENDIF
         
         IF GInput (PN_IN_Numero_Programa) = 3 THEN 
-            Verifica_Sensor_Laser;
-            Buffer;
+            GARRA_VerificarLaser;
+            PegaDepositaBuffer;
             GOTO final;
         ENDIF
         
         IF GInput (PN_IN_Numero_Programa) = 4 THEN
-            Verifica_Garra_Vazia;
-            Buffer;
+            GARRA_VerificarGarraVazia;
+            PegaDepositaBuffer;
             GOTO final;
         ENDIF
         
         IF GInput (PN_IN_Numero_Programa) = 5 THEN
-            Deposita_Est_Saida;
+            DepositaEsteiraSaida;
             MoveJ pPosição_Trabalho, sMov_Geral_Sem_Produto, fine, tGarra \WObj:=wobj0; 
             GOTO final;
         ENDIF    
@@ -573,29 +715,22 @@ MODULE MainModule
          
     fim:
 	ENDPROC
-	PROC CALIBRACAO()
-		MoveAbsJ [[0,0,0,0,0,0],[0,9E+09,9E+09,9E+09,9E+09,9E+09]]\NoEOffs, v1000, z50, tool0;
-	ENDPROC
-	PROC Routine1()
-		pMov_Pega_Depos_Buffer := pPega_Esteira_Entrada_Fam_1;
-        pMov_Pega_Depos_Buffer.trans := pMov_Pega_Depos_Buffer.trans + pOfst_Aprox_Berço_Est_Saida;
-        MoveJ pMov_Pega_Depos_Buffer, v1000, fine, tGarra\WObj:=wBuffer_Esq;
-        MoveL pPega_Esteira_Entrada_Fam_1, v200, fine, tGarra\WObj:=wBuffer_Esq;
-        MoveL pMov_Pega_Depos_Buffer, v2500, fine, tGarra\WObj:=wBuffer_Esq;
-        MoveJ pPosição_Trabalho, v1000, fine, tGarra\WObj:=wobj0;
-	ENDPROC
-    PROC Pega_Est_Entrada()
+	
+    !*************************************************************************************************************************
+    !Pega Redutor na Esteira de Entrada de Peças
+    !*************************************************************************************************************************
+    PROC PegaEsteiraEntrada()
 		!Inicio de ciclo de pega peça na esteira de entrada
         
         !Aguarda número de família diferente de 0
         WaitGI PN_IN_Numero_Familia \NOTEQ, 0;
         
         !Verifica se a garra está vazia
-        Verifica_Garra_Vazia;
+        GARRA_VerificarGarraVazia;
         
-        !Abre_Garra
-        Destrava_Produto;
-        Abre_Garra;
+        !Abre Garra
+        GARRA_DestravarProduto;
+        GARRA_AbrirGarra;
         
         !Vai para posição em frente à esteira
         AccSet nAcc_Mov_Geral, nRamp_Mov_Geral;
@@ -646,7 +781,7 @@ MODULE MainModule
         !Aproxima do produto
         motionsup \On \TuneValue:= nSens_Colid_Aprox;
         pMov_Pega_Esteira_Entrada := pPosição_Final_Est_Entrada;
-        pMov_Pega_Esteira_Entrada.trans := pMov_Pega_Esteira_Entrada.trans + pOfst_Aprox_Pega_Est_Entrada;
+        pMov_Pega_Esteira_Entrada.trans := pMov_Pega_Esteira_Entrada.trans + pOfst_Aprox_PegaEsteiraEntrada;
         MoveL pMov_Pega_Esteira_Entrada, sMov_Aprox_Berço_Sem_Produto, z50, tGarra \WObj:=wBuffer_Esq;
         
         !Ponto de Pega
@@ -655,7 +790,7 @@ MODULE MainModule
         MoveL pMov_Pega_Esteira_Entrada, SMov_Fina, fine, tGarra \WObj:=wBuffer_Esq;
         
         !Pega Produto
-        Fecha_Garra;
+        GARRA_FecharGarra;
         
         TEST nNum_Fam
           CASE 1:
@@ -673,10 +808,10 @@ MODULE MainModule
         MoveL pMov_Pega_Esteira_Entrada, SMov_Levanta_Com_Produto, z1, tGarra \WObj:=wBuffer_Esq;
         
         !Trava o produto
-        Trava_Produto;
+        GARRA_TravarProduto;
         
         pMov_Pega_Esteira_Entrada := pPosição_Final_Est_Entrada;
-        pMov_Pega_Esteira_Entrada.trans := pMov_Pega_Esteira_Entrada.trans + pOfst_Aprox_Pega_Est_Entrada;
+        pMov_Pega_Esteira_Entrada.trans := pMov_Pega_Esteira_Entrada.trans + pOfst_Aprox_PegaEsteiraEntrada;
         MoveL pMov_Pega_Esteira_Entrada, SMov_Levanta_Com_Produto, z50, tGarra \WObj:=wBuffer_Esq;
               
         pMov_Pega_Esteira_Entrada := pPosição_Final_Est_Entrada;
@@ -695,7 +830,7 @@ MODULE MainModule
         !Aproxima do produto
         motionsup \On \TuneValue:= nSens_Colid_Aprox;
         pMov_Pega_Esteira_Entrada := pPosição_Final_Est_Entrada;
-        pMov_Pega_Esteira_Entrada.trans := pMov_Pega_Esteira_Entrada.trans + pOfst_Aprox_Pega_Est_Entrada;
+        pMov_Pega_Esteira_Entrada.trans := pMov_Pega_Esteira_Entrada.trans + pOfst_Aprox_PegaEsteiraEntrada;
         MoveL pMov_Pega_Esteira_Entrada, sMov_Aprox_Berço_Sem_Produto, z50, tGarra \WObj:=wBuffer_Esq;
         
         !Ponto de Pega
@@ -703,7 +838,7 @@ MODULE MainModule
         MoveL pMov_Pega_Esteira_Entrada, SMov_Fina, fine, tGarra \WObj:=wBuffer_Esq;
         
         !Pega Produto
-        Fecha_Garra;
+        GARRA_FecharGarra;
         
         GripLoad lFamilia_3;
         
@@ -713,7 +848,7 @@ MODULE MainModule
         MoveL pMov_Pega_Esteira_Entrada, SMov_SuperFina, z1, tGarra\WObj:=wBuffer_Esq;
        
         !Trava o produto
-        Trava_Produto;
+        GARRA_TravarProduto;
         
         !Aproximação 1
         pMov_Pega_Esteira_Entrada := pPosição_Final_Est_Entrada;
@@ -742,7 +877,7 @@ MODULE MainModule
         !Aproxima do produto
         motionsup \On \TuneValue:= nSens_Colid_Aprox;
         pMov_Pega_Esteira_Entrada := pPosição_Final_Est_Entrada;
-        pMov_Pega_Esteira_Entrada.trans := pMov_Pega_Esteira_Entrada.trans + pOfst_Aprox_Pega_Est_Entrada;
+        pMov_Pega_Esteira_Entrada.trans := pMov_Pega_Esteira_Entrada.trans + pOfst_Aprox_PegaEsteiraEntrada;
         MoveL pMov_Pega_Esteira_Entrada, sMov_Aprox_Berço_Sem_Produto, z50, tGarra \WObj:=wBuffer_Esq;
         
         !Ponto de Pega
@@ -750,7 +885,7 @@ MODULE MainModule
         MoveL pMov_Pega_Esteira_Entrada, SMov_Fina, fine, tGarra \WObj:=wBuffer_Esq;
         
         !Pega Produto
-        Fecha_Garra;
+        GARRA_FecharGarra;
         
         GripLoad lFamilia_4;
         
@@ -760,7 +895,7 @@ MODULE MainModule
         MoveL pMov_Pega_Esteira_Entrada, SMov_SuperFina, z1, tGarra\WObj:=wBuffer_Esq;
         
         !Trava o produto
-        Trava_Produto;
+        GARRA_TravarProduto;
         
         !Aproximação 1
         pMov_Pega_Esteira_Entrada := pPosição_Final_Est_Entrada;
@@ -786,10 +921,14 @@ MODULE MainModule
         MoveAbsJ jposRecolhidoEsteira, sMov_Geral_Com_Produto, z200, tGarra\WObj:=wBuffer_Esq; 
     
         !Avisa clp que finalizou rotina
-        Comunica_CLP;
+        ComunicaCLP;
         
 	ENDPROC
-    PROC Deposita_Est_Saida()
+    
+    !*************************************************************************************************************************
+    !Deposita Redutor na Esteira de Saída de Peças
+    !*************************************************************************************************************************
+    PROC DepositaEsteiraSaida()
 		!Inicio de ciclo de deposita peça na esteira de saida
         
         !Aguarda número de família diferente de 0
@@ -855,7 +994,7 @@ MODULE MainModule
         MoveL pMov_Depos_Esteira_Saída, SMov_SuperFina, z1, tGarra \WObj:=wBuffer_Dir;
         
         !Destrava o produto
-        Destrava_Produto;
+        GARRA_DestravarProduto;
         
         !Ponto de Deposita
         pMov_Depos_Esteira_Saída := pPosição_Final_Est_Saida;
@@ -892,7 +1031,7 @@ MODULE MainModule
         MoveL pMov_Depos_Esteira_Saída, SMov_SuperFina, z1, tGarra \WObj:=wBuffer_Dir;
         
         !Destrava o produto
-        Destrava_Produto;
+        GARRA_DestravarProduto;
         
         !Ponto de Deposita
         pMov_Depos_Esteira_Saída := pPosição_Final_Est_Saida;
@@ -929,7 +1068,7 @@ MODULE MainModule
         MoveL pMov_Depos_Esteira_Saída, SMov_SuperFina, z1, tGarra \WObj:=wBuffer_Dir;
         
         !Destrava o produto
-        Destrava_Produto;
+        GARRA_DestravarProduto;
         
         !Ponto de Deposita
         pMov_Depos_Esteira_Saída := pPosição_Final_Est_Saida;
@@ -938,7 +1077,7 @@ MODULE MainModule
     deposita_saida:
     
         !Deposita Produto
-        Abre_Garra;
+        GARRA_AbrirGarra;
         
         GripLoad load0;
         
@@ -952,16 +1091,14 @@ MODULE MainModule
         MoveJ pFrente_Esteira_Saida, sMov_Geral_Sem_Produto, z100, tGarra \WObj:=wBuffer_Dir;
         
         !Avisa clp que finalizou rotina
-        Comunica_CLP;
+        ComunicaCLP;
             
 	ENDPROC
-    PROC Comunica_CLP()
-        !Avisa clp que finalizou rotina
-        Set PN_OUT_Programa_Finalizado;
-        WaitGI PN_IN_Numero_Programa, 0;
-        Reset PN_OUT_Programa_Finalizado;
-    ENDPROC
-    PROC Buffer()
+    
+    !*************************************************************************************************************************
+    !Pega Redutor nas posições do Buffer
+    !*************************************************************************************************************************
+    PROC PegaDepositaBuffer()
 		VAR robtarget pIntermedCentroMassa;
 	    VAR jointtarget jposIntermedCentroMassa;
         VAR jointtarget jposRecolhidoAux;
@@ -3096,7 +3233,7 @@ inpos_fam_1_2:
     
     p_depos:
         !Destrava o produto
-        Destrava_Produto;
+        GARRA_DestravarProduto;
         
         !Ponto final para depositar
         pMov_Pega_Depos_Buffer := pPosição_Final_Buffer;
@@ -3114,7 +3251,7 @@ inpos_fam_1_2:
         
       a_garra:
         !Deposita Produto
-        Abre_Garra;
+        GARRA_AbrirGarra;
         
         GripLoad load0;
         
@@ -3168,10 +3305,10 @@ inpos_fam_1_2:
     pega_fam_1_2:
         !Ciclo para pegar peça no buffer
         
-        Verifica_Garra_Vazia;
+        GARRA_VerificarGarraVazia;
         !Abre Garra
-        Destrava_Produto;
-        Abre_Garra;
+        GARRA_DestravarProduto;
+        GARRA_AbrirGarra;
         
         !Vai para posição intermediária no centro de massa
         AccSet nAcc_Mov_Geral, nRamp_Mov_Geral;
@@ -3272,7 +3409,7 @@ inpos_fam_1_2:
         
     f_garra:        
         !Pega Produto
-        Fecha_Garra;
+        GARRA_FecharGarra;
         
         TEST nNum_Fam
           CASE 1:        
@@ -3301,7 +3438,7 @@ inpos_fam_1_2:
         
     tp_ac_1_2:
         !Trava o produto
-        Trava_Produto;
+        GARRA_TravarProduto;
         
         pMov_Pega_Depos_Buffer := pPosição_Final_Buffer;
         pMov_Pega_Depos_Buffer.trans := pMov_Pega_Depos_Buffer.trans + pOfst_Aprox_Pega_Depos_Buffer;
@@ -3492,7 +3629,7 @@ inpos_fam_3:
         
     p_depos_3:
         !Destrava o produto
-        Destrava_Produto;
+        GARRA_DestravarProduto;
         
         !Ponto final para depositar
         pMov_Pega_Depos_Buffer := pPosição_Final_Buffer;
@@ -3510,7 +3647,7 @@ inpos_fam_3:
         
       a_garra_3:
         !Deposita Produto
-        Abre_Garra;
+        GARRA_AbrirGarra;
         
         GripLoad load0;
         
@@ -3565,10 +3702,10 @@ inposf_fam_3:
      pega_fam_3:
         !Ciclo para pegar peça no buffer
     
-        Verifica_Garra_Vazia;
+        GARRA_VerificarGarraVazia;
         !Abre Garra
-        Destrava_Produto;
-        Abre_Garra;
+        GARRA_DestravarProduto;
+        GARRA_AbrirGarra;
         
         !Vai para posição intermediária no centro de massa
         AccSet nAcc_Mov_Geral, nRamp_Mov_Geral;
@@ -3668,7 +3805,7 @@ inpegapos_fam_3:
         
     f_garra_3:        
         !Pega Produto
-        Fecha_Garra;
+        GARRA_FecharGarra;
         
         GripLoad lFamilia_3;
         
@@ -3688,7 +3825,7 @@ inpegapos_fam_3:
     
     tp_ac_3:
         !Trava o produto
-        Trava_Produto;
+        GARRA_TravarProduto;
     
         !Movimento 1 de Recuo
         pMov_Pega_Depos_Buffer := pPosição_Final_Buffer;
@@ -3896,7 +4033,7 @@ inpos_fam_4:
         
     p_depos_4:
         !Destrava o produto
-        Destrava_Produto;
+        GARRA_DestravarProduto;
         
         !Ponto final para depositar
         pMov_Pega_Depos_Buffer := pPosição_Final_Buffer;
@@ -3914,7 +4051,7 @@ inpos_fam_4:
         
       a_garra_4:
         !Deposita Produto
-        Abre_Garra;
+        GARRA_AbrirGarra;
         
         GripLoad load0;
         
@@ -3969,10 +4106,10 @@ inpos_fam_4:
      pega_fam_4:
         !Ciclo para pegar peça no buffer
         
-        Verifica_Garra_Vazia;
+        GARRA_VerificarGarraVazia;
         !Abre Garra
-        Destrava_Produto;
-        Abre_Garra;
+        GARRA_DestravarProduto;
+        GARRA_AbrirGarra;
         
         !Ponto acima da posição
         AccSet nAcc_Mov_Geral, nRamp_Mov_Geral;
@@ -4071,7 +4208,7 @@ inpos_fam_4:
         
     f_garra_4:        
         !Pega Produto
-        Fecha_Garra;
+        GARRA_FecharGarra;
         
         GripLoad lFamilia_4;
         
@@ -4091,7 +4228,7 @@ inpos_fam_4:
         
     tp_ac_4:
         !Trava o produto
-        Trava_Produto;   
+        GARRA_TravarProduto;   
     
         !Movimento 1 de Recuo
         pMov_Pega_Depos_Buffer := pPosição_Final_Buffer;
@@ -4181,12 +4318,82 @@ inpos_fam_4:
               
     fim:
         !Avisa clp que finalizou rotina
-        Comunica_CLP;
+        ComunicaCLP;
         
 	ENDPROC
+        
+    !*************************************************************************************************************************
+    !Troca de Dados CLP
+    !*************************************************************************************************************************
+    PROC ComunicaCLP()
+        !Avisa clp que finalizou rotina
+        Set PN_OUT_Programa_Finalizado;
+        WaitGI PN_IN_Numero_Programa, 0;
+        Reset PN_OUT_Programa_Finalizado;
+    ENDPROC
+
+    !*************************************************************************************************************************
+    !Reset de flags
+    !*************************************************************************************************************************
+    PROC ResetFlags()
+        SetDO \Sync, PN_OUT_Solicita_Abertura, 0;
+        SetDO \Sync, PN_OUT_Solicita_Fecha_Garra, 0;
+        SetDO\Sync, PN_OUT_Programa_Finalizado, 0;
+    ENDPROC
     
-    !****ABRIR GARRA (RECUAR SERVOS)
-    PROC Abre_Garra()
+    !*************************************************************************************************************************
+    !Retorna wObjData (Frame) de um index qualquer do Buffer
+    !*************************************************************************************************************************
+     FUNC wobjdata GetWObjBuffer(Num i)
+            
+         !Area C (Robô de Costas para Esteira, à Direita
+            IF (i >= 13 AND i <= 15) OR (i >= 19 AND i <= 21) OR (i >= 25 AND i <= 27) OR (i >= 31 AND i <=33) OR (i >= 37 AND i <= 39) OR (i >= 43 AND i <= 45) OR (i >= 49 AND i <= 51) OR (i >= 55 AND i <=57) OR (i >= 61 AND i <= 63) OR (i >= 67 AND i <= 69) OR (i >= 73 AND i <= 75) OR (i >= 79 AND i <= 81) OR (i >= 85 AND i <= 87) OR (i >= 91 AND i <= 93) OR (i >= 97 AND i <= 99) THEN
+                Return wBuffer_Dir;
+            
+            !Area B (Robô de Costas para Esteira, à sua Frente
+            ELSEIF (i >= 1 AND i <= 9) THEN
+                RETURN wBuffer_Front;
+
+            !Area A (Robô de Costas para Esteira, à sua Esquerda
+            ELSE
+                RETURN wBuffer_Esq;
+            ENDIF
+     ENDFUNC
+     
+    !*************************************************************************************************************************
+    !Retorna área de um index qualquer do Buffer
+    !*************************************************************************************************************************
+     FUNC string GetAreaBuffer(Num i)
+            
+         !Area C (Robô de Costas para Esteira, à Direita
+            IF (i >= 13 AND i <= 15) OR (i >= 19 AND i <= 21) OR (i >= 25 AND i <= 27) OR (i >= 31 AND i <=33) OR (i >= 37 AND i <= 39) OR (i >= 43 AND i <= 45) OR (i >= 49 AND i <= 51) OR (i >= 55 AND i <=57) OR (i >= 61 AND i <= 63) OR (i >= 67 AND i <= 69) OR (i >= 73 AND i <= 75) OR (i >= 79 AND i <= 81) OR (i >= 85 AND i <= 87) OR (i >= 91 AND i <= 93) OR (i >= 97 AND i <= 99) THEN
+                Return "C";
+            
+            !Area B (Robô de Costas para Esteira, à sua Frente
+            ELSEIF (i >= 1 AND i <= 9) THEN
+                RETURN "B";
+
+            !Area A (Robô de Costas para Esteira, à sua Esquerda
+            ELSE
+                RETURN "A";
+            ENDIF
+     ENDFUNC
+    
+    !*************************************************************************************************************************
+    !Retorna a Posição Específica no Buffer (i= Index Buffer, f= Familia)
+    !*************************************************************************************************************************
+     FUNC robtarget GetPosicaoBuffer(Num i, Num f)
+         VAR robtarget RT_PosicaoBuffer;
+         
+         GetDataVal "pBuffer_Pos_" + NumToStr(i, 0) + "_Fam_" + NumToStr(f, 0), RT_PosicaoBuffer;
+         
+         RETURN RT_PosicaoBuffer;
+     ENDFUNC
+ 
+    !*************************************************************************************************************************
+    !Rotinas de Garra: Abrir (Recuar Servos Para Fora)
+    !*************************************************************************************************************************
+    PROC GARRA_AbrirGarra()
 		!Inicio de ciclo de abertura de garra
 
         verifica_novamente:
@@ -4237,8 +4444,10 @@ inpos_fam_4:
             
 	ENDPROC
     
-    !****FECHAR GARRA (AVANÇAR SERVOS)
-    PROC Fecha_Garra()
+    !*************************************************************************************************************************
+    !Rotinas de Garra: Fechar (Avançar Servos Para o Centro)
+    !*************************************************************************************************************************
+    PROC GARRA_FecharGarra()
     	!Inicio de ciclo de fechamento de garra
         
         verifica_novamente:   
@@ -4272,7 +4481,8 @@ inpos_fam_4:
             ENDIF
         
             !Solicita Fechamento Servos:
-            SetDO \Sync, PN_OUT_Solicita_Fecha_Garra, 1;    
+            SetDO \Sync, PN_OUT_Solicita_Fecha_Garra, 1;
+            SetDO\Sync, PN_OUT_Solicita_Abertura, 0;    
             
             WaitDI PN_IN_Garra_Aberta, 0\MaxTime:= 5\TimeFlag:=timeout_av1;
             WaitDI PN_IN_Garra_Fechada, 1\MaxTime:= 5\TimeFlag:=timeout_av2;
@@ -4289,8 +4499,10 @@ inpos_fam_4:
             SetDO \Sync, PN_OUT_Solicita_Fecha_Garra, 0;                
 	ENDPROC
     
-    !****TRAVAR (COLOCAR INDEX CILINDROS)
-    PROC Trava_Produto()
+    !*************************************************************************************************************************
+    !Rotinas de Garra: Travar (Avançar Index Cilindros)
+    !*************************************************************************************************************************
+    PROC GARRA_TravarProduto()
      init_tp:    
         SetDO PN_OUT_DO_Cil_NAv, 0;
         
@@ -4312,8 +4524,10 @@ inpos_fam_4:
         
     ENDPROC
     
-    !****DESTRAVAR (RETIRAR INDEX CILINDROS)
-    PROC Destrava_Produto()
+    !*************************************************************************************************************************
+    !Rotinas de Garra: Destravar (Recuar Index Cilindros)
+    !*************************************************************************************************************************
+    PROC GARRA_DestravarProduto()
     init_dp:  
         SetDO PN_OUT_DO_Cil_NRc, 0;
     
@@ -4332,30 +4546,10 @@ inpos_fam_4:
         ENDIF       
     ENDPROC
     
-	PROC rTesteEixo1()
-		MoveJ [[4357.31,-1398.45,1978.14],[0.687563,0.27921,0.236299,0.627265],[-1,0,1,1],[2346.44,9E+09,9E+09,9E+09,9E+09,9E+09]], v2500, z50, tGarra\WObj:=wBuffer_Esq;
-		WaitTime\InPos, 1;
-		MoveJ [[3711.49,-1299.99,468.29],[0.0309804,-0.747554,-0.66329,0.0158269],[-1,0,1,0],[2346.44,9E+09,9E+09,9E+09,9E+09,9E+09]], v2500, z50, tGarra\WObj:=wBuffer_Esq;
-		WaitTime\InPos, 1;
-	ENDPROC
-    PROC Teste_Eixo_7()
-        CONST robtarget pPos1:=[[1782.23,-9.35,841.69],[0.0118043,0.0684442,-0.99757,-0.00543028],[-1,0,-1,0],[2708.4,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        CONST robtarget pPos2:=[[1782.23,-9.35,841.69],[0.0118043,0.0684442,-0.99757,-0.00543028],[-1,0,-1,0],[2288.4,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        CONST robtarget pPos3:=[[1782.23,-9.35,841.69],[0.0118043,0.0684442,-0.99757,-0.00543028],[-1,0,-1,0],[1808.4,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        CONST robtarget pPos4:=[[1782.23,-9.35,841.69],[0.0118043,0.0684442,-0.99757,-0.00543028],[-1,0,-1,0],[1208.4,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        CONST robtarget pPos5:=[[1782.23,-9.35,841.69],[0.0118043,0.0684442,-0.99757,-0.00543028],[-1,0,-1,0],[0,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        CONST robtarget pPos6:=[[1782.23,-9.35,841.69],[0.0118043,0.0684442,-0.99757,-0.00543028],[-1,0,-1,0],[-1208.4,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        CONST robtarget pPos7:=[[1782.23,-9.35,841.69],[0.0118043,0.0684442,-0.99757,-0.00543028],[-1,0,-1,0],[-1808.4,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        CONST robtarget pPos8:=[[1782.23,-9.35,841.69],[0.0118043,0.0684442,-0.99757,-0.00543028],[-1,0,-1,0],[-2208.4,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        CONST robtarget pPos9:=[[1782.23,-9.35,841.69],[0.0118043,0.0684442,-0.99757,-0.00543028],[-1,0,-1,0],[-2708.4,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        
-    loop:
-        MoveL pPos1, v5000, z50, tGarra\WObj:=wobj0;
-        MoveL pPos9, v5000, z50, tGarra\WObj:=wobj0;
-        GOTO loop;
-        
-    ENDPROC
-    PROC Verifica_Sensor_Laser()
+    !*************************************************************************************************************************
+    !Rotinas de Garra: Validar Sensor Laser
+    !*************************************************************************************************************************
+    PROC GARRA_VerificarLaser()
      inicio:
         IF DInput (DI_Pres_Peça_Berço_1) = 0 AND DInput (DI_Pres_Peça_Berço_2) = 1 GOTO Fim;
         
@@ -4368,13 +4562,11 @@ inpos_fam_4:
     Fim:
         SetDO PN_OUT_Produto_Existente, 0;
     ENDPROC
-    PROC Garante_Comandos_0()
-        SetDO \Sync, PN_OUT_Solicita_Abertura, 0;
-        SetDO \Sync, PN_OUT_Solicita_Fecha_Garra, 0;
-        SetDO\Sync, PN_OUT_Programa_Finalizado, 0;
-    ENDPROC
-    PROC Verifica_Garra_Vazia()
-        
+    
+    !*************************************************************************************************************************
+    !Rotinas de Garra: Validar sensores garra / Garantir que a garra está vazia
+    !*************************************************************************************************************************
+    PROC GARRA_VerificarGarraVazia()
     !Verifica se robô tem peça na garra ou não 
     
     Verifica:
@@ -4386,15 +4578,48 @@ inpos_fam_4:
             TPWrite "Após depositar o produto, adicionar código do produto na IHM";
             IF GInput (PN_IN_Numero_Programa) = 2 THEN
                 TPWrite "Programa 'Pega na Esteira de Entrada' necessita de garra vazia para iniciar";
+                PulseDO\PLength:=2, PN_OUT_Pos_Home_Manual;
             ELSEIF GInput (PN_IN_Numero_Programa) = 4 THEN
                 TPWrite "Programa 'Pega Peça no Buffer' necessita de garra vazia para iniciar";
+                PulseDO\PLength:=2, PN_OUT_Pos_Home_Manual;
             ENDIF    
             WaitUntil DI_Pres_Peça_Garra_2 = 1 AND DI_Pres_Peça_Garra_1 = 0;
             GOTO Verifica;
         ENDIF
     Fim:
     ENDPROC
-    PROC Verificação_Inicial ()
+
+    !*************************************************************************************************************************
+    !Função para ser chamada pela manutenção (retorno para home)
+    !*************************************************************************************************************************
+    PROC EXTRAS_PosicionaHomeManual()
+        !Movimente manualmente o robô até uma posição em que esteja livre de colisão e acione os comandos abaixo.
+        
+    verif: 
+        pPosição_Atual := CRobT(\Tool:=tGarra \WObj:=wobj0);
+        
+        nAux_Limite_Low := 550;
+        IF (pPosição_Atual.trans.z > nAux_Limite_Low) THEN
+            GOTO DoHome;
+        ELSE
+            TPErase;
+            TPWrite "Posicione Robô mais Alto";
+            Stop\NoRegain;
+            GOTO verif;
+        ENDIF
+        
+    DoHome:
+        MoveJ pPosição_Trabalho, sMov_Geral_Sem_Produto, fine, tGarra \WObj:=wobj0;
+        SetDO PN_OUT_Pos_Home_Manual, 0;
+        
+        
+    ENDPROC
+    
+    !*************************************************************************************************************************
+    !*************************************************************************************************************************
+    !*************************************************************************************************************************    
+    !FUNÇÕES NÃO MAIS UTILIZADAS
+    PROC DEPRECATED_VerificacaoInicial ()
         VAR num Passo_Verif_Inic;
         VAR num RespostaTP;
         CONST pos pOffset_Esteiras_Z := [0,0,300];
@@ -4506,27 +4731,76 @@ inpos_fam_4:
                 
    Fim:     
     ENDPROC
-    PROC Pos_Home_Manualmente()
-        !Movimente manualmente o robô até uma posição em que esteja livre de colisão e acione os comandos abaixo.
+    
+    
+    !*************************************************************************************************************************
+    !FUNÇÕES EXTRAS: Movimenta Para o Angulo Zero de cada eixo
+    !*************************************************************************************************************************
+    PROC EXTRAS_MovimentaEixosZero()
+      !Ponto Zero do Robo...  
+      MoveAbsJ [[0,0,0,0,0,0],[0,9E+09,9E+09,9E+09,9E+09,9E+09]] \NoEOffs, v400, fine, tool0;
+      !
+	ENDPROC
+    
+    !*************************************************************************************************************************
+    !FUNÇÕES EXTRAS: Teste do 7o eixo
+    !*************************************************************************************************************************
+    PROC EXTRAS_Teste7oEixo()
+        CONST robtarget pPos1:=[[1782.23,-9.35,841.69],[0.0118043,0.0684442,-0.99757,-0.00543028],[-1,0,-1,0],[2708.4,9E+09,9E+09,9E+09,9E+09,9E+09]];
+        CONST robtarget pPos2:=[[1782.23,-9.35,841.69],[0.0118043,0.0684442,-0.99757,-0.00543028],[-1,0,-1,0],[-2708.4,9E+09,9E+09,9E+09,9E+09,9E+09]];
         
-    verif: 
-        pPosição_Atual := CRobT(\Tool:=tGarra \WObj:=wobj0);
-        
-        nAux_Limite_Low := 550;
-        IF (pPosição_Atual.trans.z > nAux_Limite_Low) THEN
-            GOTO DoHome;
-        ELSE
-            TPErase;
-            TPWrite "Posicione Robô mais Alto";
-            Stop\NoRegain;
-            GOTO verif;
-        ENDIF
-        
-    DoHome:
-        MoveJ pPosição_Trabalho, sMov_Geral_Sem_Produto, fine, tGarra \WObj:=wobj0;
-        SetDO PN_OUT_Pos_Home_Manual, 0;
-        
-        
+        WHILE TRUE DO
+            MoveL pPos1, v5000, z50, tGarra\WObj:=wobj0;
+            MoveL pPos2, v5000, z50, tGarra\WObj:=wobj0;
+        ENDWHILE
+       
+    ENDPROC
+    
+    
+   
+    
+    
+    !*************************************************************************************************************************
+    !*************************************************************************************************************************
+    !*************************************************************************************************************************    
+    !FUNÇÕES NÃO MAIS UTILIZADAS
+
+    
+	PROC DEPRECATED_TesteEixo1()
+		MoveJ [[4357.31,-1398.45,1978.14],[0.687563,0.27921,0.236299,0.627265],[-1,0,1,1],[2346.44,9E+09,9E+09,9E+09,9E+09,9E+09]], v2500, z50, tGarra\WObj:=wBuffer_Esq;
+		WaitTime\InPos, 1;
+		MoveJ [[3711.49,-1299.99,468.29],[0.0309804,-0.747554,-0.66329,0.0158269],[-1,0,1,0],[2346.44,9E+09,9E+09,9E+09,9E+09,9E+09]], v2500, z50, tGarra\WObj:=wBuffer_Esq;
+		WaitTime\InPos, 1;
+	ENDPROC
+  
+    PROC DEPRECATED_Routine1()
+		pMov_Pega_Depos_Buffer := pPega_Esteira_Entrada_Fam_1;
+        pMov_Pega_Depos_Buffer.trans := pMov_Pega_Depos_Buffer.trans + pOfst_Aprox_Berço_Est_Saida;
+        MoveJ pMov_Pega_Depos_Buffer, v1000, fine, tGarra\WObj:=wBuffer_Esq;
+        MoveL pPega_Esteira_Entrada_Fam_1, v200, fine, tGarra\WObj:=wBuffer_Esq;
+        MoveL pMov_Pega_Depos_Buffer, v2500, fine, tGarra\WObj:=wBuffer_Esq;
+        MoveJ pPosição_Trabalho, v1000, fine, tGarra\WObj:=wobj0;
+	ENDPROC
+    
+    PROC DEPRECATED_TesteAfericao()
+      !Ponto de Referencia p/ troca de lagarto..
+      MoveJ pCheck_00,v500,z30,tGarra\WObj:=wobj0;
+      MoveJ pCheck_01,v500,z30,tGarra\WObj:=wobj0;
+      MoveJ pCheck_02,v500,z30,tGarra\WObj:=wobj0;
+      MoveL Offs(pCheck,0,0,400),v500,z30,tGarra\WObj:=wobj0;
+      MoveL Offs(pCheck,0,0,100), v200, z30, tGarra\WObj:=wobj0;
+      MoveL Offs(pCheck,0,0,40), v40, z5, tGarra\WObj:=wobj0;
+      MoveL pCheck, v20, fine, tGarra\WObj:=wobj0;
+      WaitUntil\InPos,TRUE;
+      WaitTime\InPos, 1.5;
+      !Stop;
+      MoveL Offs(pCheck,0,0,40),v100,z5,tGarra\WObj:=wobj0;
+      MoveL Offs(pCheck,0,0,100),v400,z30,tGarra\WObj:=wobj0;
+      MoveL Offs(pCheck,0,0,400),v500,z30,tGarra\WObj:=wobj0;
+      MoveJ pCheck_02,v500,z30,tGarra\WObj:=wobj0;
+      MoveJ pCheck_01,v500,z30,tGarra\WObj:=wobj0;
+      MoveJ pCheck_00,v500,z30,tGarra\WObj:=wobj0;
+      !
     ENDPROC
     
 ENDMODULE
